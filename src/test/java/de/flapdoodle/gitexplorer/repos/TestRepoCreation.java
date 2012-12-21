@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -11,6 +12,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.lib.ObjectDatabase;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.StoredConfig;
@@ -26,6 +28,12 @@ public class TestRepoCreation {
 
 	@Test
 	public void createRepo() throws NoFilepatternException, GitAPIException, IOException {
+		/**
+		 * 
+		 * 
+		 */
+		
+		
 		File baseDir = Files.createTempDir("gitrepo");
 		File gitDir = new File(baseDir, ".git");
 
@@ -38,6 +46,13 @@ public class TestRepoCreation {
 		
 		git.add().addFilepattern("*.sample").call();
 		git.commit().setMessage("first commit").call();
+		
+		git.branchCreate().setName("new-branch").call();
+		git.checkout().setName("new-branch").call();
+		
+		List<Ref> branches = git.branchList().call();
+		
+		System.out.println("Branches: "+branches);
 		
 		Assert.assertTrue("clean up",Files.deleteAll(baseDir));
 	}
