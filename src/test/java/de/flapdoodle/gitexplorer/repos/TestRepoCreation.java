@@ -29,7 +29,18 @@ public class TestRepoCreation {
 	@Test
 	public void createRepo() throws NoFilepatternException, GitAPIException, IOException {
 		/**
-		 * 
+		 * +
+		 * name:content
+		 * -
+		 * name
+		 * ->
+		 * branchName
+		 * <-
+		 * branchName
+		 * -->
+		 * createBranchName
+		 * <--
+		 * mergeBranchIntoThis
 		 * 
 		 */
 		
